@@ -1,32 +1,36 @@
-const novels = ['1'];
+const novels = ['1', '2'];
 
 const translations = {
   'en': {
     indexTitle: 'AI Novel Library',
     indexHeader: 'AI Novel Library',
     novels: {
-      '1': 'Voyant'
+      '1': 'Voyant',
+      '2': 'The Last Bastion'
     }
   },
   'zh-Hant': {
     indexTitle: 'AI小說庫',
     indexHeader: 'AI小說庫',
     novels: {
-      '1': '觀者'
+      '1': '觀者',
+      '2': '最後堡壘'
     }
   },
   'zh-Hans': {
     indexTitle: 'AI小说库',
     indexHeader: 'AI小说库',
     novels: {
-      '1': '观者'
+      '1': '观者',
+      '2': '最后堡垒'
     }
   },
   'ja': {
     indexTitle: 'AI小説ライブラリ',
     indexHeader: 'AI小説ライブラリ',
     novels: {
-      '1': '観者'
+      '1': '観者',
+      '2': '最後の砦'
     }
   }
 };
