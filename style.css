@@ -1,0 +1,14 @@
+body {
+  font-family: sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+  line-height: 1.6;
+}
+nav {
+  text-align: right;
+  margin-bottom: 1rem;
+}
+#novel {
+  white-space: pre-line;
+}
