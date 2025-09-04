@@ -1,19 +1,33 @@
+const novels = ['1'];
+
 const translations = {
   'en': {
-    title: 'AI Generated Novel',
-    header: 'AI Generated Novel'
+    indexTitle: 'AI Novel Library',
+    indexHeader: 'AI Novel Library',
+    novels: {
+      '1': 'AI Generated Novel'
+    }
   },
   'zh-Hant': {
-    title: 'AI生成小說',
-    header: 'AI生成小說'
+    indexTitle: 'AI小說庫',
+    indexHeader: 'AI小說庫',
+    novels: {
+      '1': 'AI生成小說'
+    }
   },
   'zh-Hans': {
-    title: 'AI生成小说',
-    header: 'AI生成小说'
+    indexTitle: 'AI小说库',
+    indexHeader: 'AI小说库',
+    novels: {
+      '1': 'AI生成小说'
+    }
   },
   'ja': {
-    title: 'AI生成小説',
-    header: 'AI生成小説'
+    indexTitle: 'AI小説ライブラリ',
+    indexHeader: 'AI小説ライブラリ',
+    novels: {
+      '1': 'AI生成小説'
+    }
   }
 };
 
@@ -31,17 +45,53 @@ function detectLanguage() {
   return 'en';
 }
 
-function setLanguage(lang) {
-  document.title = translations[lang].title;
-  document.getElementById('header').innerText = translations[lang].header;
-  fetch(`novels/novel_${lang}.txt`).then(r => r.text()).then(text => {
-    document.getElementById('novel').innerText = text;
-  });
-  document.getElementById('language-selector').value = lang;
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : null;
 }
 
-document.getElementById('language-selector').addEventListener('change', (e) => {
-  setLanguage(e.target.value);
-});
+function setLanguage(lang) {
+  document.documentElement.lang = lang;
+  const novelId = document.body.dataset.novelId;
+  if (novelId) {
+    const title = translations[lang].novels[novelId];
+    document.title = title;
+    document.getElementById('header').innerText = title;
+    fetch(`novels/${novelId}_${lang}.txt`).then(r => r.text()).then(text => {
+      document.getElementById('novel').innerText = text;
+    });
+  } else {
+    document.title = translations[lang].indexTitle;
+    document.getElementById('header').innerText = translations[lang].indexHeader;
+    const list = document.getElementById('novel-list');
+    list.innerHTML = '';
+    novels.forEach(id => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `${id}.html`;
+      a.textContent = translations[lang].novels[id];
+      li.appendChild(a);
+      list.appendChild(li);
+    });
+  }
+  const selector = document.getElementById('language-selector');
+  if (selector) {
+    selector.value = lang;
+  }
+}
 
-setLanguage(detectLanguage());
+const defaultLang = detectLanguage();
+const savedLang = getCookie('lang');
+const initialLang = savedLang || defaultLang;
+setLanguage(initialLang);
+
+const selector = document.getElementById('language-selector');
+selector.addEventListener('change', (e) => {
+  const lang = e.target.value;
+  setLanguage(lang);
+  if (lang !== defaultLang) {
+    document.cookie = `lang=${lang}; path=/; max-age=31536000`;
+  } else {
+    document.cookie = 'lang=; path=/; max-age=0';
+  }
+});
