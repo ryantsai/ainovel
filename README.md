@@ -24,5 +24,5 @@ A simple static website that displays an AI generated novel in multiple language
 - `index.html` – main web page.
 - `script.js` – language detection and novel loading logic.
 - `style.css` – basic styling.
-- `novels/` – AI generated novel text files for each supported language.
+- `novels/<id>/` – HTML page and translated text files for each novel.
 

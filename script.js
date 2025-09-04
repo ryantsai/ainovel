@@ -5,28 +5,28 @@ const translations = {
     indexTitle: 'AI Novel Library',
     indexHeader: 'AI Novel Library',
     novels: {
-      '1': 'AI Generated Novel'
+      '1': 'Voyant'
     }
   },
   'zh-Hant': {
     indexTitle: 'AI小說庫',
     indexHeader: 'AI小說庫',
     novels: {
-      '1': 'AI生成小說'
+      '1': '觀者'
     }
   },
   'zh-Hans': {
     indexTitle: 'AI小说库',
     indexHeader: 'AI小说库',
     novels: {
-      '1': 'AI生成小说'
+      '1': '观者'
     }
   },
   'ja': {
     indexTitle: 'AI小説ライブラリ',
     indexHeader: 'AI小説ライブラリ',
     novels: {
-      '1': 'AI生成小説'
+      '1': '観者'
     }
   }
 };
@@ -57,7 +57,7 @@ function setLanguage(lang) {
     const title = translations[lang].novels[novelId];
     document.title = title;
     document.getElementById('header').innerText = title;
-    fetch(`novels/${novelId}_${lang}.txt`).then(r => r.text()).then(text => {
+    fetch(`${novelId}_${lang}.txt`).then(r => r.text()).then(text => {
       document.getElementById('novel').innerText = text;
     });
   } else {
@@ -68,7 +68,7 @@ function setLanguage(lang) {
     novels.forEach(id => {
       const li = document.createElement('li');
       const a = document.createElement('a');
-      a.href = `${id}.html`;
+      a.href = `novels/${id}/${id}.html`;
       a.textContent = translations[lang].novels[id];
       li.appendChild(a);
       list.appendChild(li);
